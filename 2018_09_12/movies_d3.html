@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Movies D3</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+
+<body>
+
+    <h1>Gráfico de Bilheteria de Filmes</h1>
+    <div id="chart1"></div>
+
+    <h1>Gráfico de Orçamento de Filmes</h1>
+    <div id="chart2"></div>
+
+    <h1>Gráfico de Lucro de Filmes</h1>
+    <div id="chart3"></div>
+
+    <h1>Gráfico de Gêneros de acordo com a Bilheteria de Filmes</h1>
+    <div id="chart4"></div>
+
+     <script type="text/javascript">
+        let colorScale = d3.scaleLinear()
+              .domain([0, 100])
+              .range(["#deebf7", "#08306b"]); // Escala de cor
+
+        function render1(data, comparator) {
+            d3.select("#chart1").selectAll("div#div2.h-bar")
+                    .data(data)
+                .enter().append("div")
+                .attr("id", "div2")
+                .attr("class", "h-bar")
+                .append("span");
+
+            d3.select("#chart1").selectAll("div#div2.h-bar")
+                    .data(data)
+                .attr("class", "h-bar")
+                .style("width", function (d) {
+                    return (d.Worldwide_Gross_M * 0.4) + "px";
+                })
+                .select("span")
+                    .text(function (d) {
+                        return d.Film;
+                    });
+            if(comparator)
+              d3.select("body")
+                .selectAll("div#div2.h-bar")
+                .sort(comparator);
+        }
+
+        function render2(data, comparator) {
+          d3.select("#chart2").selectAll("div#div3.h-bar")
+                  .data(data)
+              .enter().append("div")
+              .attr("id", "div3")
+              .attr("class", "h-bar")
+              .attr("style", "background-color: red")
+              .append("span");
+
+          d3.select("#chart2").selectAll("div#div3.h-bar")
+                  .data(data)
+              .attr("class", "h-bar")
+              .style("width", function (d) {
+                  return (d.Budget_M * 3) + "px";
+              })
+              .select("span")
+                  .text(function (d) {
+                      return d.Film;
+                  });
+          if(comparator)
+            d3.select("body")
+              .selectAll("div#div3.h-bar")
+              .sort(comparator);
+        }
+
+        function render3(data, comparator) {
+          d3.select("#chart3").selectAll("div#div4.h-bar")
+                  .data(data)
+              .enter().append("div")
+              .attr("id", "div4")
+              .attr("class", "h-bar")
+              .append("span");
+
+          d3.select("#chart3").selectAll("div#div4.h-bar")
+                  .data(data)
+              .attr("class", "h-bar")
+              .style("width", function (d) {
+                  return ((d.Worldwide_Gross_M - d.Budget_M) * 0.5) + "px";
+              })
+              .style("background-color", function(d){
+                  return colorScale((d.Worldwide_Gross_M - d.Budget_M) * 0.1);
+              })
+              .select("span")
+                  .text(function (d) {
+                      return d.Film;
+                  });
+          if(comparator)
+            d3.select("body")
+              .selectAll("div#div4.h-bar")
+              .sort(comparator);
+        }
+
+        function render4(data, comparator) {
+          console.log(data)
+          d3.select("#chart4").selectAll("div#div5")
+                  .data(data)
+                  .enter()
+            	  .append("div")
+                  .attr("id", "div5")
+                  .attr("class", "h-bar")
+                  .attr("style", "background-color: brown")
+                  .append("span");
+
+          d3.select("#chart4").selectAll("div#div5.h-bar")
+                  .data(data)
+                  .attr("class", "h-bar")
+                  .style("width", function (d) {
+  	                  return (d.gross * 0.1) + "px";
+              	   })
+              .select("span")
+                  .text(function (d) {
+                      return d.name;
+                  });
+            if(comparator)
+            d3.select("body")
+              .selectAll("div#div5.h-bar")
+              .sort(comparator);
+        }
+
+        var compare1 = function (a, b) {
+          return a.Worldwide_Gross_M > b.Worldwide_Gross_M?-1:1;
+        };
+
+        var compare2 = function (a, b) {
+          return a.Budget_M > b.Budget_M?-1:1;
+        };
+
+        var compare3 = function (a, b) {
+          return (a.Worldwide_Gross_M - a.Budget_M) > (b.Worldwide_Gross_M - b.Budget_M)?-1:1;
+        };
+
+        var compare4 = function (a, b) {
+          return a.gross > b.gross?-1:1;
+        };
+
+        d3.json("movies.json", function(error, json){
+            render1(json, compare1);
+            render2(json, compare2);
+            render3(json, compare3);
+
+            var data = {}
+            var genres = []
+
+            for (var i = 0; i < json.length; i++) {
+              var obj = json[i]
+              data[obj["Genre"]] = 0;
+            }
+
+            for (var i = 0; i < json.length; i++) {
+              var obj = json[i]
+              data[obj["Genre"]] += obj["Worldwide_Gross_M"];
+            }
+
+            for (var i in data) {
+              var obj = {
+                "name" : i,
+                "gross" : data[i]
+              };
+
+              genres.push(obj);
+            }
+            render4(genres, compare4);
+        });
+    </script>
+</body>
+</html>
