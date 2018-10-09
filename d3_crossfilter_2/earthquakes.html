@@ -5,6 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+ integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+ crossorigin=""/>
+
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <title>Earthquake Data</title>
@@ -19,18 +24,20 @@
 <body>
   <main role="main" class="container">
     <div class='row'>
-      <div id='magnitude-chart' class="col-6">
-        <h4> Number of Events by Magnitude </h4>
-      </div>
-      <div id='depth-chart' class="col-6">
-      <h4> Events by Depth (km) </h4>
-      </div>   
+    	<div id = "mapid" class="col-6"></div>
+    	<div class="col-6">
+    		<div id='magnitude-chart'>
+	      		<h4> Number of Events by Magnitude </h4>
+	    	</div>
+	    	<div id='depth-chart'>
+		  		<h4> Events by Depth (km) </h4>
+	    	</div>
+    	</div>   
     </div>
     <div class='row'>
       <div id='time-chart' class="single-col">
          <h4> Events per hour </h4>
       </div>
-
   </div>
   <table class="table table-hover" id="dc-table-graph">
         <thead>
@@ -56,6 +63,11 @@
   d3.csv("data/earthquakes.csv").then(function (data) {
 
     // format our data
+
+    let map = L.map('mapid').setView([-41.05,172.93], 5);L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {attribution: '&copy; <ahref="http://www.openstreetmap.org/">OpenStreetMap</a>contributors',
+    	maxZoom: 17
+    }).addTo(map);
+
       let dateParse = d3.utcParse("%Y-%m-%dT%H:%M:%S");
         let magntdFormat = d3.format(".1f");
         let depthFormat = d3.format("d");
@@ -64,6 +76,15 @@
           d.dtg = dateParse(d.origintime.substr(0,19));
           d.magnitude = magntdFormat(+d.magnitude);
           d.depth = depthFormat(+d.depth);
+
+          let circle = L.circle([d.latitude, d.longitude], 10000, {
+     			color: '#fd8d3c',
+      			weight: 2,
+      			fillColor: '#fecc5c',
+      			fillOpacity: 0.5
+       		}).addTo(map);
+
+            circle.bindPopup("Magnitude: " + d.magnitude);
       });
 
     // Run the data through crossfilter and load our 'facts'
@@ -161,5 +182,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+ integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+ crossorigin=""></script>
+
 </body>
 </html>
