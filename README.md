@@ -14,7 +14,7 @@
 ---
 ## Filmes dia 10/09/2018
 
-
+[Atividade de filmes](d3_intro/movies_d3.html)<br>
 
 
 
