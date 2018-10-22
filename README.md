@@ -16,6 +16,15 @@
 
 [Atividade de filmes](d3_intro/movies_d3.html)<br>
 
+## Scatterplot dia 17/09/2018
+
+[Lesmiserables](d3_networks_trees/lesmiserables.html)<br>
+
+
+
+
+
+
 
 
 Para saber mais sobre a sintaxe markdown, veja [este guia](https://guides.github.com/features/mastering-markdown/).
