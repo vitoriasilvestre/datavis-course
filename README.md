@@ -14,7 +14,7 @@
 ---
 ## Filmes dia 05/09/2018
 
-[movies_d3.html)](d3_intro/movies_d3.html)<br>
+[movies_d3.html](d3_intro/movies_d3.html)<br>
 
 ## Scatterplot Transições dia 17/09/2018
 
