@@ -12,34 +12,34 @@
 [index10.html](basic/index10.html)<br>
 
 ---
-## Filmes dia 10/09/2018
+## Filmes dia 05/09/2018
 
-[d3_intro/movies_d3.html)](d3_intro/movies_d3.html)<br>
-
-## Scatterplot dia 17/09/2018
+[movies_d3.html)](d3_intro/movies_d3.html)<br>
 
 ## Scatterplot Transições dia 17/09/2018
 
-[d3_update/01_scatterplot.html](d3_update/01_scatterplot.html)<br>
-
+[01_scatterplot.html](d3_update/01_scatterplot.html)<br>
+s
 ## Crossfilter dia 24/09/2018
 
-[d3_crossfilter/acoes.html](d3_crossfilter/acoes.html)<br>
-[d3_crossfilter/movies_d3_dc.html](d3_crossfilter/movies_d3_dc.html)<br>
+[acoes.html](d3_crossfilter/acoes.html)<br>
+[movies_d3_dc.html](d3_crossfilter/movies_d3_dc.html)<br>
 
+## Crossfilter dia 26/09/2018
 
-## Crossfilter dia 01/10/2018
+[earthquakes.html](d3_crossfilter_2/earthquakes.html)<br>
 
-[d3_crossfilter_2/earthquakes.html](d3_crossfilter_2/earthquakes.html)<br>
+## Leaflet dia 03/10/2018
 
-## Leaflet dia 08/10/2018
+[chicago.html](d3_crossfilter_2/chicago.html)<br>
 
-[d3_crossfilter/acoes.html](d3_crossfilter/acoes.html)<br>
-[d3_crossfilter_2/chicago.html](d3_crossfilter_2/chicago.html)<br>
+## Network dia 09/10/2018
+[songs.html](d3_networks_trees/songs.html)<br>
+[lesmiserables.html](d3_networks_trees/lesmiserables.html)<br>
 
-## Network dia 10/10/2018
-[d3_networks_trees/songs.html](d3_networks_trees/songs.html)<br>
-[d3_networks_trees/lesmiserables.html](d3_networks_trees/lesmiserables.html)<br>
+## Color dia 22/10/2018
+[usa.html](color-d3/usa.html)<br>
+[crimes.html](color-d3/crimes.html)<br>
 
 
 
